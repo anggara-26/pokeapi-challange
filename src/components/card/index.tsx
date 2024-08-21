@@ -3,18 +3,17 @@ import Link from "next/link";
 import { useEffect } from "react";
 
 export function PokemonCard({ name, url }: { name: string; url: string }) {
+  console.log(url);
   const { data, error, loading }: any = useFetchData(url);
-
   useEffect(() => {
-    console.log(data);
-  }, [data]);
+    console.log(url);
+  }, []);
+  useEffect(() => {
+    console.log(error);
+  }, [error]);
 
   if (loading) {
     return <SkeletonPokemonCard />;
-  }
-
-  if (error) {
-    return <div>Error</div>;
   }
 
   return (
@@ -41,7 +40,7 @@ export function PokemonCard({ name, url }: { name: string; url: string }) {
               <div className="flex items-center">
                 {data.types?.map((type: any) => (
                   <span
-                    key={type}
+                    key={type.type.name}
                     className="mr-1 rounded-full bg-red-500 px-2 py-1 text-xs font-semibold text-white"
                   >
                     {type.type.name}
